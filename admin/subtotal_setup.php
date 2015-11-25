@@ -45,28 +45,20 @@ if (! $user->admin) {
 // Parameters
 $action = GETPOST('action', 'alpha');
 
-if($action=='save') {
-	
-	foreach($_REQUEST['TDivers'] as $name=>$param) {
-		
-		dolibarr_set_const($db, $name, $param);
-		
-	}
-	
+if ($action=='save') {
+    foreach ($_REQUEST['TDivers'] as $name=>$param) {
+        dolibarr_set_const($db, $name, $param);
+    }
 }
 
-if (preg_match('/set_(.*)/',$action,$reg))
-{
-	$code=$reg[1];
-	if (dolibarr_set_const($db, $code, GETPOST($code), 'chaine', 0, '', $conf->entity) > 0)
-	{
-		header("Location: ".$_SERVER["PHP_SELF"]);
-		exit;
-	}
-	else
-	{
-		dol_print_error($db);
-	}
+if (preg_match('/set_(.*)/', $action, $reg)) {
+    $code=$reg[1];
+    if (dolibarr_set_const($db, $code, GETPOST($code), 'chaine', 0, '', $conf->entity) > 0) {
+        header("Location: ".$_SERVER["PHP_SELF"]);
+        exit;
+    } else {
+        dol_print_error($db);
+    }
 }
 
 
@@ -78,10 +70,10 @@ if (preg_match('/set_(.*)/',$action,$reg))
 
 
 
-llxHeader('','Gestion de sous-total, à propos','');
+llxHeader('', 'Gestion de sous-total, à propos', '');
 
 $linkback='<a href="'.DOL_URL_ROOT.'/admin/modules.php">'.$langs->trans("BackToModuleList").'</a>';
-print_fiche_titre('Gestion de subtotal',$linkback,'setup');
+print_fiche_titre('Gestion de subtotal', $linkback, 'setup');
 
 // Configuration header
 $head = subtotalAdminPrepareHead();
@@ -95,13 +87,14 @@ dol_fiche_head(
 
 showParameters();
 
-function showParameters() {
-	global $db,$conf,$langs;
+function showParameters()
+{
+    global $db,$conf,$langs;
 	
-	$html=new Form($db);
+    $html=new Form($db);
 	
 	
-	?><form action="<?php echo $_SERVER['PHP_SELF'] ?>" name="form1" method="POST" enctype="multipart/form-data">
+    ?><form action="<?php echo $_SERVER['PHP_SELF'] ?>" name="form1" method="POST" enctype="multipart/form-data">
 		<input type="hidden" name="action" value="save" />
 	<table width="100%" class="noborder" style="background-color: #fff;">
 		<tr class="liste_titre">
@@ -110,34 +103,34 @@ function showParameters() {
 		
 		<tr>
 			<td>Activer la gestion des sous-sous-totaux</td><td><?php
-			
-				if($conf->global->SUBTOTAL_MANAGE_SUBSUBTOTAL==0) {
-					
-					 ?><a href="?action=save&TDivers[SUBTOTAL_MANAGE_SUBSUBTOTAL]=1"><?php echo img_picto($langs->trans("Disabled"),'switch_off'); ?></a><?php
-					
+
+				if ($conf->global->SUBTOTAL_MANAGE_SUBSUBTOTAL==0) {
+				    ?><a href="?action=save&TDivers[SUBTOTAL_MANAGE_SUBSUBTOTAL]=1"><?php echo img_picto($langs->trans("Disabled"), 'switch_off');
+				    ?></a><?php
+
+				} else {
+				    ?><a href="?action=save&TDivers[SUBTOTAL_MANAGE_SUBSUBTOTAL]=0"><?php echo img_picto($langs->trans("Activated"), 'switch_on');
+				    ?></a><?php
+
 				}
-				else {
-					 ?><a href="?action=save&TDivers[SUBTOTAL_MANAGE_SUBSUBTOTAL]=0"><?php echo img_picto($langs->trans("Activated"),'switch_on'); ?></a><?php
-					
-				}
 			
-			?></td>				
+    ?></td>				
 		</tr>
 		
 		<tr class="pair">
 			<td>Activer l'utilisation avancée</td><td><?php
-			
-				if(empty($conf->global->SUBTOTAL_USE_NEW_FORMAT)) {
-					
-					 ?><a href="?action=save&TDivers[SUBTOTAL_USE_NEW_FORMAT]=1"><?php echo img_picto($langs->trans("Disabled"),'switch_off'); ?></a><?php
-					
+
+				if (empty($conf->global->SUBTOTAL_USE_NEW_FORMAT)) {
+				    ?><a href="?action=save&TDivers[SUBTOTAL_USE_NEW_FORMAT]=1"><?php echo img_picto($langs->trans("Disabled"), 'switch_off');
+				    ?></a><?php
+
+				} else {
+				    ?><a href="?action=save&TDivers[SUBTOTAL_USE_NEW_FORMAT]=0"><?php echo img_picto($langs->trans("Activated"), 'switch_on');
+				    ?></a><?php
+
 				}
-				else {
-					 ?><a href="?action=save&TDivers[SUBTOTAL_USE_NEW_FORMAT]=0"><?php echo img_picto($langs->trans("Activated"),'switch_on'); ?></a><?php
-					
-				}
 			
-			?></td>				
+    ?></td>				
 		</tr>
 		
 	</table>
@@ -156,7 +149,8 @@ function showParameters() {
 				<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 					<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken'] ?>">
 					<input type="hidden" name="action" value="set_SUBTOTAL_IF_HIDE_PRICES_SHOW_QTY" />
-					<?php echo $html->selectyesno("SUBTOTAL_IF_HIDE_PRICES_SHOW_QTY",$conf->global->SUBTOTAL_IF_HIDE_PRICES_SHOW_QTY,1); ?>
+					<?php echo $html->selectyesno("SUBTOTAL_IF_HIDE_PRICES_SHOW_QTY", $conf->global->SUBTOTAL_IF_HIDE_PRICES_SHOW_QTY, 1);
+    ?>
 					<input type="submit" class="button" value="<?php echo $langs->trans("Modify") ?>">
 				</form>
 			</td>				
@@ -168,20 +162,23 @@ function showParameters() {
 				<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 					<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken'] ?>">
 					<input type="hidden" name="action" value="set_SUBTOTAL_HIDE_DOCUMENT_TOTAL" />
-					<?php echo $html->selectyesno("SUBTOTAL_HIDE_DOCUMENT_TOTAL",$conf->global->SUBTOTAL_HIDE_DOCUMENT_TOTAL,1); ?>
+					<?php echo $html->selectyesno("SUBTOTAL_HIDE_DOCUMENT_TOTAL", $conf->global->SUBTOTAL_HIDE_DOCUMENT_TOTAL, 1);
+    ?>
 					<input type="submit" class="button" value="<?php echo $langs->trans("Modify") ?>">
 				</form>
 			</td>				
 		</tr>
 		
-		<?php if ($conf->clilacevenements->enabled) { ?>
+		<?php if ($conf->clilacevenements->enabled) {
+    ?>
 			<tr>
 				<td>Afficher la quantité sur les lignes de sous-total (uniquement dans le cas d'un produit virtuel ajouté)</td>
 				<td style="text-align: right;">
 					<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 						<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken'] ?>">
 						<input type="hidden" name="action" value="set_SUBTOTAL_SHOW_QTY_ON_TITLES" />
-						<?php echo $html->selectyesno("SUBTOTAL_SHOW_QTY_ON_TITLES",$conf->global->SUBTOTAL_SHOW_QTY_ON_TITLES,1); ?>
+						<?php echo $html->selectyesno("SUBTOTAL_SHOW_QTY_ON_TITLES", $conf->global->SUBTOTAL_SHOW_QTY_ON_TITLES, 1);
+    ?>
 						<input type="submit" class="button" value="<?php echo $langs->trans("Modify") ?>">
 					</form>
 				</td>				
@@ -193,16 +190,20 @@ function showParameters() {
 					<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 						<input type="hidden" name="token" value="<?php echo $_SESSION['newtoken'] ?>">
 						<input type="hidden" name="action" value="set_SUBTOTAL_ONLY_HIDE_SUBPRODUCTS_PRICES" />
-						<?php echo $html->selectyesno("SUBTOTAL_ONLY_HIDE_SUBPRODUCTS_PRICES",$conf->global->SUBTOTAL_ONLY_HIDE_SUBPRODUCTS_PRICES,1); ?>
+						<?php echo $html->selectyesno("SUBTOTAL_ONLY_HIDE_SUBPRODUCTS_PRICES", $conf->global->SUBTOTAL_ONLY_HIDE_SUBPRODUCTS_PRICES, 1);
+    ?>
 						<input type="submit" class="button" value="<?php echo $langs->trans("Modify") ?>">
 					</form>
 				</td>				
 			</tr>
-		<?php } ?>	
+		<?php 
+}
+    ?>	
 	</table>
 	
 	<br /><br />
 	<?php
+
 }
 
 // Put here content of your page

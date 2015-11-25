@@ -112,7 +112,7 @@ class modSubtotal extends DolibarrModules
         // List of modules id that must be enabled if this module is enabled
         $this->depends = array();
 
-		$this->conflictwith=array('modMilestone');
+        $this->conflictwith=array('modMilestone');
         // List of modules id to disable if this one is disabled
         $this->requiredby = array();
         // Minimum version of PHP required by module
@@ -432,7 +432,7 @@ class modSubtotal extends DolibarrModules
      */
     public function init($options = '')
     {
-	  	global $conf;
+        global $conf;
 		
 		
 /*		if($conf->milestone->enabled) {
@@ -443,7 +443,7 @@ class modSubtotal extends DolibarrModules
 
         $result = $this->loadTables();
 
-		dolibarr_set_const($this->db, 'SUBTOTAL_MANAGE_SUBSUBTOTAL', isset($conf->global->SUBTOTAL_MANAGE_SUBSUBTOTAL) ? $conf->global->SUBTOTAL_MANAGE_SUBSUBTOTAL : 0 ,'integer',1,'Gère ou pas les sous-sous-totaux',0);
+        dolibarr_set_const($this->db, 'SUBTOTAL_MANAGE_SUBSUBTOTAL', isset($conf->global->SUBTOTAL_MANAGE_SUBSUBTOTAL) ? $conf->global->SUBTOTAL_MANAGE_SUBSUBTOTAL : 0, 'integer', 1, 'Gère ou pas les sous-sous-totaux', 0);
 		
         return $this->_init($sql, $options);
     }

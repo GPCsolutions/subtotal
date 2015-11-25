@@ -45,4 +45,3 @@ function subtotalAdminPrepareHead()
 
     return $head;
 }
-

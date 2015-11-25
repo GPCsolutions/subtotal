@@ -44,4 +44,3 @@
 	 WHERE 1";
 	 
 	 print $sql.";<br />";
-	

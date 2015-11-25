@@ -89,12 +89,13 @@ class Interfacesubtotaltrigger
 
         if ($this->version == 'development') {
             return $langs->trans("Development");
-        } elseif ($this->version == 'experimental')
-
-                return $langs->trans("Experimental");
-        elseif ($this->version == 'dolibarr') return DOL_VERSION;
-        elseif ($this->version) return $this->version;
-        else {
+        } elseif ($this->version == 'experimental') {
+            return $langs->trans("Experimental");
+        } elseif ($this->version == 'dolibarr') {
+            return DOL_VERSION;
+        } elseif ($this->version) {
+            return $this->version;
+        } else {
             return $langs->trans("Unknown");
         }
     }
@@ -390,8 +391,7 @@ class Interfacesubtotaltrigger
                 "Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id
             );
         } elseif ($action == 'LINEBILL_INSERT') {
-				
-        	dol_syslog(
+            dol_syslog(
                 "Trigger '" . $this->name . "' for action '$action' launched by " . __FILE__ . ". id=" . $object->id
             );
         } elseif ($action == 'LINEBILL_DELETE') {
